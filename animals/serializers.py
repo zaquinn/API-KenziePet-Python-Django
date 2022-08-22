@@ -28,7 +28,7 @@ class AnimalSerializer(serializers.Serializer):
     age_in_human_years = serializers.SerializerMethodField(read_only=True)
 
     def get_age_in_human_years(self, obj: Animal) -> str:
-        return str(16 * math.log(obj.age) + 31)
+        return str(round(16 * math.log(obj.age) + 31, 2))
 
     def create(self, validated_data: dict) -> Animal:
         group_data = validated_data.pop("group")
@@ -44,24 +44,6 @@ class AnimalSerializer(serializers.Serializer):
             animal_obj.traits.add(traits_obj)
 
         return animal_obj
-
-class AnimalDetailSerializer(serializers.Serializer): 
-    id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField()
-    age = serializers.IntegerField()
-    weight = serializers.FloatField()
-    sex = serializers.ChoiceField(choices=Sex.choices, default=Sex.OTHER)
-
-    group = GroupSerializer()
-    traits = TraitSerializer(many=True)
-
-    created_at = serializers.DateTimeField(read_only=True)
-    updated_at = serializers.DateTimeField(read_only=True)
-
-    age_in_human_years = serializers.SerializerMethodField(read_only=True)
-
-    def get_age_in_human_years(self, obj: Animal) -> str:
-        return str(16 * math.log(obj.age) + 31)
 
     def update(self, instance: Animal, validated_data: dict) -> Animal:
         for key, value in validated_data.items():

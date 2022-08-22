@@ -2,8 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework.views import APIView, Request, Response, status
 
 from .models import Animal
-from .serializers import (AnimalDetailSerializer, AnimalSerializer,
-                          CustomExceptionError)
+from .serializers import AnimalSerializer, CustomExceptionError
 
 # Create your views here.
 #fazer diagrams com os relacionamentos
@@ -46,7 +45,7 @@ class AnimalView(APIView):
 class AnimalDetailView(APIView):
     def get(self, request: Request, animal_id: int) -> Response:
         animal = get_object_or_404(Animal, id=animal_id)
-        serializer = AnimalDetailSerializer(animal)
+        serializer = AnimalSerializer(animal)
         return Response(serializer.data)
 
     def patch(self, request: Request, animal_id: int) -> Response:
@@ -68,7 +67,7 @@ class AnimalDetailView(APIView):
 
         animal = get_object_or_404(Animal, id=animal_id)
 
-        serializer = AnimalDetailSerializer(animal, data=request.data, partial=True)
+        serializer = AnimalSerializer(animal, data=request.data, partial=True)
 
         serializer.is_valid(raise_exception=True)
         serializer.save()
