@@ -42,6 +42,8 @@ class AnimalTest(TestCase):
 
         cls.group_1 = Group.objects.create(**cls.group_1_data)
 
+        cls.group_2 = Group.objects.create(**cls.group_2_data)
+
         cls.traits_1 = Trait.objects.create(**cls.traits_1_data)
 
         cls.traits_2 = Trait.objects.create(**cls.traits_2_data)
