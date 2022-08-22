@@ -17,5 +17,8 @@ class Animal(models.Model):
 
     traits = models.ManyToManyField("traits.Trait", related_name="animals")
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __repr__(self) -> str:
         return f"<Animal {self.id} - {self.name}>"
