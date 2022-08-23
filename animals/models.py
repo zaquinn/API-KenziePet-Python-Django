@@ -13,9 +13,9 @@ class Animal(models.Model):
     weight = models.FloatField()
     sex = models.CharField(max_length=15, choices=Sex.choices, default=Sex.OTHER)
 
-    group = models.ForeignKey("groups.Group", on_delete=models.CASCADE, related_name="animals")
+    group = models.ForeignKey("groups.Group", on_delete=models.CASCADE, related_name="animals_group")
 
-    traits = models.ManyToManyField("traits.Trait", related_name="animals")
+    traits = models.ManyToManyField("traits.Trait", related_name="animals_traits")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
